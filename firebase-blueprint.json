@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "submission": {
+      "title": "Submission",
+      "description": "User form submission containing contact details, social handles, and their message.",
+      "type": "object",
+      "properties": {
+        "nama": {
+          "type": "string",
+          "description": "Name of the user"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "tiktok": {
+          "type": "string",
+          "description": "TikTok handle"
+        },
+        "instagram": {
+          "type": "string",
+          "description": "Instagram handle"
+        },
+        "pesan": {
+          "type": "string",
+          "description": "Message to dad/daughter"
+        },
+        "noTelfon": {
+          "type": "string",
+          "description": "Active phone number"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Unix timestamp in milliseconds"
+        }
+      },
+      "required": ["nama", "email", "pesan", "noTelfon", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/submissions/{submissionId}": {
+      "schema": "submission",
+      "description": "Collection of visitor submissions"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Ayah Paruh Waktu V2 Hard Sell",
+  "description": "A monochrome wireframe microsite framework for the \u0027Ayah Paruh Waktu\u0027 book campaign, validation of structure and emotional storytelling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

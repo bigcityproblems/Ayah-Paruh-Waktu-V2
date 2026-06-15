@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Catch-all safety gate
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'fajarptrnto@gmail.com' &&
+        request.auth.token.email_verified == true
+      );
+    }
+
+    function isValidSubmission(data) {
+      return data.nama is string && data.nama.size() <= 200
+        && data.email is string && data.email.size() <= 254
+        && data.pesan is string && data.pesan.size() <= 2000
+        && data.noTelfon is string && data.noTelfon.size() <= 50
+        && data.tiktok is string && data.tiktok.size() <= 200
+        && data.instagram is string && data.instagram.size() <= 200
+        && data.timestamp is number;
+    }
+
+    match /submissions/{submissionId} {
+      allow create: if isValidSubmission(request.resource.data);
+      allow read, delete: if isAdmin();
+      // Allow update for completing submissions or for admin updates/sync changes
+      allow update: if isValidSubmission(request.resource.data) || isAdmin();
+    }
+
+    match /config/{configId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
